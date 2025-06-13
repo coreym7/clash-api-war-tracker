@@ -49,10 +49,36 @@ def save_roster(session: Session, parsed_roster: list):
 
 def save_war_metadata(session: Session, parsed_metadata: dict):
     """
-    Save war metadata (one war instance) into the database.
-    Should check for existing war_tag to prevent duplicates.
+    Inserts or updates war metadata. If the war_tag already exists,
+    updates its fields with the latest values.
+    Returns the war ID.
     """
-    pass
+    war_tag = parsed_metadata["war_tag"]
+
+    war = session.query(War).filter_by(war_tag=war_tag).first()
+
+    if war:
+        # Update in-place
+        war.opponent_name = parsed_metadata["opponent_name"]
+        war.result = parsed_metadata["result"]
+        war.team_size = parsed_metadata["team_size"]
+        war.start_time = parsed_metadata["start_time"]
+        war.end_time = parsed_metadata["end_time"]
+    else:
+        war = War(
+            war_tag=war_tag,
+            opponent_name=parsed_metadata["opponent_name"],
+            result=parsed_metadata["result"],
+            team_size=parsed_metadata["team_size"],
+            start_time=parsed_metadata["start_time"],
+            end_time=parsed_metadata["end_time"]
+        )
+        session.add(war)
+
+    session.commit()
+    return war.id
+
+
 
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, player_tag_to_id: dict, participation_lookup: dict):

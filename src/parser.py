@@ -56,11 +56,32 @@ def parse_war_metadata(war_data):
     """
     Extract and return war-level metadata as a dictionary.
     """
+
+    result = war_data.get("result")
+
+    if not result and war_data.get("state") == "warEnded":
+        clan_stars = war_data["clan"]["stars"]
+        opponent_stars = war_data["opponent"]["stars"]
+        clan_destruction = war_data["clan"]["destructionPercentage"]
+        opponent_destruction = war_data["opponent"]["destructionPercentage"]
+
+        if clan_stars > opponent_stars:
+            result = "win"
+        elif clan_stars < opponent_stars:
+            result = "lose"
+        else:
+            if clan_destruction > opponent_destruction:
+                result = "win"
+            elif clan_destruction < opponent_destruction:
+                result = "lose"
+            else:
+                result = "tie"
+
     return {
         "war_tag": f"{war_data['clan']['tag']}-{war_data['opponent']['tag']}-{war_data['endTime']}",
         "opponent_name": war_data["opponent"]["name"],
         "team_size": war_data.get("teamSize"),
-        "result": war_data.get("result"),
+        "result": result,
         "state": war_data.get("state"),
         "start_time": war_data.get("startTime"),
         "end_time": war_data.get("endTime")
@@ -198,13 +219,13 @@ if __name__ == "__main__":
     # For now, test parse_clan_roster only
     roster_data = load_json("clan_roster.json")
     parsed_roster = parse_clan_roster(roster_data)
-    print_roster_summary(parsed_roster)
+    #print_roster_summary(parsed_roster)
 
     # Uncomment below when ready for war data
     war_data = load_json("current_war.json")
     parsed_metadata = parse_war_metadata(war_data)
-    print_metadata_summary(parsed_metadata)
+    #print_metadata_summary(parsed_metadata)
     parsed_attacks = parse_member_attacks(war_data)
-    print_attack_summary(parsed_attacks)
+    #print_attack_summary(parsed_attacks)
     parsed_participation = parse_participation(war_data, parsed_roster, parsed_attacks)
-    print_participation_summary(parsed_participation)
+    #print_participation_summary(parsed_participation)
