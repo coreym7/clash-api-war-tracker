@@ -1,7 +1,17 @@
 # Clash of Clans War Tracker
 
-This project is an open-source, API-driven analytics system designed to help Clash of Clans players — especially clan leaders — better manage and visualize their war performance and participation data.
+**API-driven analytics and war tracking system built in Python using SQLAlchemy and a fully normalized relational schema.**
 
+This project demonstrates real-world data engineering and systems architecture — integrating a REST API, performing structured ETL parsing, and storing multi-entity data in a relational SQLite backend with test-driven validation. Designed as a portfolio piece to showcase clean architecture, modular data pipelines, and scalable reporting foundations.
+
+Built from scratch with:
+
+- ✅ SQLAlchemy-based schema with players, wars, participation, and attack mapping
+- ✅ Parser modules that extract and transform API JSON into structured metrics
+- ✅ Isolated save-layer functions with proper foreign key relationships
+- ✅ Full local test data set and test files validating DB inserts
+
+> Use case: Built around the Clash of Clans API, but structured like any production-grade data tracking or analytics ingestion system — a proof-of-concept for ETL and dashboard backend architecture.
 ---
 
 ## 🔧 Current Development Status
