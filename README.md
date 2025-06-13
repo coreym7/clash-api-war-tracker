@@ -1,2 +1,68 @@
-# clash-api-war-tracker
-A Python-based analytics and automation tool for Clash of Clans war tracking. Parses and stores live API data to power dashboards, player performance insights, and clan management workflows.
+# Clash of Clans War Tracker
+
+This project is an open-source, API-driven analytics system designed to help Clash of Clans players — especially clan leaders — better manage and visualize their war performance and participation data.
+
+---
+
+## 🔧 Current Development Status
+
+**Project launched:** June 13, 2025  
+We are currently in the early development phase. At this stage:
+
+- ✅ API fetch utilities are functional
+- ✅ War and roster data parsers are built and tested
+- ✅ SQLAlchemy-based relational schema is in place
+- ✅ Roster saving to database is implemented
+- 🔄 Currently building out database write functions for war metadata, attacks, and participation
+
+---
+
+## 🧩 Next Steps
+
+- Complete database storage functions for:
+  - War metadata
+  - Member attacks
+  - Participation metrics
+- Build an MVP dashboard runner via `main.py` that summarizes and validates war data
+- Wrap the system in a Flask app for:
+  - Web-based dashboard viewing
+  - Triggering or monitoring data refreshes
+- Deploy on a home server
+  - Run data syncs via scheduled tasks or cron
+  - Remote access to dashboard secured through Tailscale mesh VPN
+
+---
+
+## 💡 Planned Features
+
+- Trend analysis by player and clan performance
+- Color-coded dashboards for attack effectiveness and missed opportunities
+- Inactive player flagging
+- Player consistency metrics across wars
+- Filters for tracking upward or downward attack trends
+- Future expansion to allow historical war comparisons
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── utils.py              # API fetch and JSON helpers
+├── parser.py             # War, attack, and roster parsing logic
+├── db.py                 # Database write functions
+├── models.py             # SQLAlchemy models
+├── create_db.py          # Schema initialization script
+├── fetch_and_preview.py  # Manual API data pull for previewing
+tests/
+├── test_roster_load.py   # Validates DB writing of clan roster
+data/
+├── clan_roster.json      # Sample JSON for testing
+├── current_war.json      # Sample JSON for testing
+```
+
+---
+
+## ⚖️ License
+
+This project is licensed under the MIT License.
