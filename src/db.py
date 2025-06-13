@@ -90,8 +90,32 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, player_tag
 
 
 def save_participation(session: Session, parsed_participation: list, war_id: int, player_tag_to_id: dict):
-    """
-    Save participation records for the war, linked by player and war IDs.
-    Returns a mapping of (player_tag -> participation_id) for use in attack saving.
-    """
-    pass
+    tag_to_participation_id = {}
+
+    for entry in parsed_participation:
+        player_tag = entry["player_tag"]
+        player_id = player_tag_to_id.get(player_tag)
+
+        print(f"Trying to save participation for: {player_tag} | Found in DB: {player_id is not None}")
+
+        if not player_id:
+            continue
+        if not player_id:
+            continue
+
+        participation = Participation(
+            player_id=player_id,
+            war_id=war_id,
+            in_war=entry["in_war"],
+            attacks_used=entry["attacks_used"],
+            total_stars=entry["total_stars"],
+            new_stars=entry["new_stars"],
+            average_percent=entry["average_percent"]
+        )
+        session.add(participation)
+        session.flush()  # get ID before commit
+        tag_to_participation_id[player_tag] = participation.id
+
+    session.commit()
+    return tag_to_participation_id
+
