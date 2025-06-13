@@ -1,10 +1,13 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Player
-from src.utils import load_json
-from src.parser import parse_clan_roster
-from src.db import save_roster
+from models import Player
+from utils import load_json
+from parser import parse_clan_roster
+from db import save_roster
 
 # Setup DB connection
 engine = create_engine("sqlite:///clash_tracker.db")
