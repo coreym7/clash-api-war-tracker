@@ -33,6 +33,32 @@ We are currently in the early development phase. At this stage:
 
 ---
 
+### 📊 Dashboard Design Preview *(Planned)*
+
+The future Flask-based dashboard will visualize parsed and deduced war data, including:
+
+- **Live War Summary**  
+  Current score, stars used, remaining attacks, time left, opponent name
+
+- **Player Roster & Participation Table**  
+  Includes attack counts, stars earned, average destruction %, and participation status (even if no attacks were used)
+
+- **Attack Insights**  
+  Visuals for mirror attacks, new star gains (actual impact vs. redundant attacks), and average effectiveness
+
+- **Player Behavior Flags**  
+  Highlight inactive members, low-percentage attackers, or missed attack trends
+
+- **Strategic Metrics** *(derived via logic)*  
+  - Mirror delta: deviation from same-position targeting  
+  - New star contribution: real net impact  
+  - In/Out-of-war detection (roster vs. active war presence)  
+  - Aggregated player performance over time (planned)
+
+The dashboard will be mobile-accessible and deployable to a home server with remote viewing through Tailscale VPN.
+
+---
+
 ## 💡 Planned Features
 
 - Trend analysis by player and clan performance
