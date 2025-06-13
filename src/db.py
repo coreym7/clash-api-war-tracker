@@ -81,12 +81,31 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
 
 
-def save_attacks(session: Session, parsed_attacks: list, war_id: int, player_tag_to_id: dict, participation_lookup: dict):
-    """
-    Save all parsed attacks into the database.
-    Relies on mapped player IDs and participation IDs for FK relationships.
-    """
-    pass
+def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
+    for attack_data in parsed_attacks:
+        attacker_tag = attack_data["attacker_tag"]
+        participation_id = participation_lookup.get(attacker_tag)
+        if not participation_id:
+            continue  # skip if no matching participation
+
+        attack = Attack(
+            participation_id=participation_id,
+            attack_number=attack_data["attack_number"],
+            stars=attack_data["stars"],
+            destruction_percent=attack_data["destruction_percent"],
+            target_tag=attack_data["target_tag"],
+            target_position=attack_data["target_position"],
+            mirror_attack=attack_data["mirror_attack"],
+            new_stars=attack_data["new_stars"],
+            mirror_delta=attack_data["mirror_delta"],
+            attack_time=attack_data["attack_time"]
+        )
+        session.add(attack)
+
+    session.commit()
+
+
+
 
 
 def save_participation(session: Session, parsed_participation: list, war_id: int, player_tag_to_id: dict):
@@ -96,8 +115,7 @@ def save_participation(session: Session, parsed_participation: list, war_id: int
         player_tag = entry["player_tag"]
         player_id = player_tag_to_id.get(player_tag)
 
-        print(f"Trying to save participation for: {player_tag} | Found in DB: {player_id is not None}")
-
+        
         if not player_id:
             continue
         if not player_id:

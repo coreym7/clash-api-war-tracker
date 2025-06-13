@@ -138,8 +138,6 @@ def parse_member_attacks(war_data):
     return war_attacks
 
 
-
-
 def print_attack_summary(attacks):
     """
     Dynamically prints each attack's details for validation, adaptable to future changes.
