@@ -45,8 +45,6 @@ def save_roster(session: Session, parsed_roster: list):
 
     session.commit()
 
-
-
 def save_war_metadata(session: Session, parsed_metadata: dict):
     """
     Inserts or updates war metadata. If the war_tag already exists,
@@ -77,9 +75,6 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
     session.commit()
     return war.id
-
-
-
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
     seen_tags = set()
@@ -122,10 +117,6 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
         session.add(attack)
 
     session.commit()
-
-
-
-
 
 
 def save_participation(session: Session, parsed_participation: list, war_id: int):

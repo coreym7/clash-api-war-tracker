@@ -33,9 +33,6 @@ def parse_clan_roster(roster_data):
 
     return members
 
-
-
-
 def print_roster_summary(parsed_roster):
     """
     Prints a simple summary of parsed clan members.
