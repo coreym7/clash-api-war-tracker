@@ -2,81 +2,85 @@
 
 **API-driven analytics and war tracking system built in Python using SQLAlchemy and a fully normalized relational schema.**
 
-This project demonstrates real-world data engineering and systems architecture — integrating a REST API, performing structured ETL parsing, and storing multi-entity data in a relational SQLite backend with test-driven validation. Designed as a portfolio piece to showcase clean architecture, modular data pipelines, and scalable reporting foundations.
+This project demonstrates real-world data engineering and systems architecture—integrating a REST API, performing structured ETL parsing, and storing multi-entity data in a relational SQLite backend with test-driven validation. Designed as a portfolio piece to showcase clean architecture, modular data pipelines, and scalable reporting foundations.
 
 Built from scratch with:
 
-- ✅ SQLAlchemy-based schema with players, wars, participation, and attack mapping
-- ✅ Parser modules that extract and transform API JSON into structured metrics
-- ✅ Isolated save-layer functions with proper foreign key relationships
-- ✅ Full local test data set and test files validating DB inserts
+- ✅ SQLAlchemy-based schema with players, wars, participation, and attack mapping  
+- ✅ Parser modules that extract and transform API JSON into structured metrics  
+- ✅ Isolated save-layer functions with proper foreign key relationships  
+- ✅ Full local test data set and test files validating DB inserts  
+- ✅ MVP output generated to Excel using full war and roster data from live API
 
-> Use case: Built around the Clash of Clans API, but structured like any production-grade data tracking or analytics ingestion system — a proof-of-concept for ETL and dashboard backend architecture.
+> **Use case:** Built around the Clash of Clans API, but structured like any production-grade data tracking or analytics ingestion system—a proof-of-concept for ETL and dashboard backend architecture.
+
 ---
 
 ## 🔧 Current Development Status
 
 **Project launched:** June 13, 2025  
-We are currently in the early development phase. At this stage:
+The MVP is complete. The system parses API data, stores full relational records, and outputs a summarized Excel file reflecting player participation and attack performance per war.
 
-- ✅ API fetch utilities are functional
-- ✅ War and roster data parsers are built and tested
-- ✅ SQLAlchemy-based relational schema is in place
-- ✅ Roster saving to database is implemented
-- 🔄 Currently building out database write functions for war metadata, attacks, and participation
+- ✅ API fetch utilities are functional  
+- ✅ War, roster, and attack parsers are built and tested  
+- ✅ SQLAlchemy-based relational schema is in place  
+- ✅ All database write functions (players, wars, participation, attacks) are implemented  
+- ✅ MVP Excel output is live and includes full summary logic  
 
 ---
 
 ## 🧩 Next Steps
 
-- Complete database storage functions for:
-  - War metadata
-  - Member attacks
-  - Participation metrics
-- Build an MVP dashboard runner via `main.py` that summarizes and validates war data
-- Wrap the system in a Flask app for:
-  - Web-based dashboard viewing
-  - Triggering or monitoring data refreshes
-- Deploy on a home server
-  - Run data syncs via scheduled tasks or cron
-  - Remote access to dashboard secured through Tailscale mesh VPN
+- Wrap system in a Flask app:
+  - Web-based dashboard with sortable war summaries and roster data
+  - Manual or scheduled refresh triggers
+- Deploy on a home server:
+  - Schedule data syncs via cron or background jobs
+  - Enable secure remote access via Tailscale VPN
 
 ---
 
-### 📊 Dashboard Design Preview *(Planned)*
+### 📊 Dashboard Design Preview *(Current Output Format)*
 
-The future Flask-based dashboard will visualize parsed and deduced war data, including:
+The current output is a war-by-war Excel summary where:
 
-- **Live War Summary**  
-  Current score, stars used, remaining attacks, time left, opponent name
+- Rows = Players  
+- Columns = Wars  
+- Each cell = Full performance summary for that player in that war
 
-- **Player Roster & Participation Table**  
-  Includes attack counts, stars earned, average destruction %, and participation status (even if no attacks were used)
+#### Cell Format Legend
 
-- **Attack Insights**  
-  Visuals for mirror attacks, new star gains (actual impact vs. redundant attacks), and average effectiveness
+- First Line: `✓` or `x`  
+  - `✓`: Player was in war  
+  - `x`: Player was not in war  
+  - `⭐ ⭐ ⭐ ⭐` (New Stars Gained)  
+- Second and Third Lines: One line per attack  
+  - `⭐⭐⭐ 100.0% M:+0`  
+    - Total stars earned, percent destruction, and **M**irror delta  
+    - `M:+0` means attack was on mirror target  
+    - Positive = attacked higher than mirror  
+    - Negative = attacked lower than mirror  
 
-- **Player Behavior Flags**  
-  Highlight inactive members, low-percentage attackers, or missed attack trends
+This structure allows rapid identification of:
+- Missed attacks (only `✓` shown)
+- Low value or overkill attacks
+- Player strategy effectiveness
+- Roster vs. performance consistency
 
-- **Strategic Metrics** *(derived via logic)*  
-  - Mirror delta: deviation from same-position targeting  
-  - New star contribution: real net impact  
-  - In/Out-of-war detection (roster vs. active war presence)  
-  - Aggregated player performance over time (planned)
-
-The dashboard will be mobile-accessible and deployable to a home server with remote viewing through Tailscale VPN.
+The planned Flask dashboard will preserve this logic and visual structure, with added:
+- Color-coded visuals
+- Historical trends
+- Mobile-first layout
 
 ---
 
 ## 💡 Planned Features
 
-- Trend analysis by player and clan performance
-- Color-coded dashboards for attack effectiveness and missed opportunities
-- Inactive player flagging
-- Player consistency metrics across wars
-- Filters for tracking upward or downward attack trends
-- Future expansion to allow historical war comparisons
+- Historical war comparisons and player trend analysis  
+- Color-coded dashboards for participation and attack value  
+- Inactivity and inconsistency flags  
+- Star efficiency and mirror mismatch detection  
+- Filters for targeted strategy evaluation
 
 ---
 
