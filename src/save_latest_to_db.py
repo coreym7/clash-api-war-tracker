@@ -17,13 +17,14 @@ war_data = load_json("current_war.json")
 # Parse all
 parsed_roster, parsed_metadata, parsed_attacks, parsed_participation = parse_all(roster_data, war_data)
 
-# Avoid duplicate war entry
-existing = session.query(War).filter_by(war_tag=parsed_metadata["war_tag"]).first()
-if existing:
-    print(f"⚠ War {parsed_metadata['war_tag']} already exists in DB.")
-else:
-    save_war_metadata(session, parsed_metadata)
-    war = session.query(War).filter_by(war_tag=parsed_metadata["war_tag"]).first()
-    participation_map = save_participation(session, parsed_participation, war.id)
-    save_attacks(session, parsed_attacks, war.id, participation_map)
-    print(f"✅ Saved war {war.war_tag} to DB.")
+# Always (re)save the war metadata
+save_war_metadata(session, parsed_metadata)
+
+# Get or re-fetch the war record
+war = session.query(War).filter_by(war_tag=parsed_metadata["war_tag"]).first()
+
+# Update participation and attacks (could also upsert)
+participation_map = save_participation(session, parsed_participation, war.id)
+save_attacks(session, parsed_attacks, war.id, participation_map)
+
+print(f"✅ Upserted war {war.war_tag} to DB.")

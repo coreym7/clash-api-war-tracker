@@ -7,6 +7,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Player, War, Participation, Attack
+from datetime import datetime, timezone
 
 def generate_report(session):
     # Fetch all wars in chronological order
@@ -27,9 +28,16 @@ def generate_report(session):
                 .first()
             )
 
+            # inside the loop where the war is being used
+            war_start = datetime.strptime(war.start_time, "%Y%m%dT%H%M%S.%fZ")
+
             if not participation:
-                row.append("❌")
+                if player.first_seen > war_start:
+                    row.append("—")  # Not in clan yet
+                else:
+                    row.append("❌")  # In clan but didn’t participate
                 continue
+
 
             indicator = "✔" if participation.in_war else "❌"
             new_star_line = f"{indicator} {'⭐' * participation.new_stars}"

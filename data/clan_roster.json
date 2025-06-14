@@ -16,8 +16,8 @@
     "medium": "https://api-assets.clashofclans.com/badges/200/1SHgkm0hNV7V3RZTIydaptFRFFS9oGpmu3nz0fkJdDk.png"
   },
   "clanLevel": 22,
-  "clanPoints": 43309,
-  "clanBuilderBasePoints": 34424,
+  "clanPoints": 43318,
+  "clanBuilderBasePoints": 34432,
   "clanCapitalPoints": 2902,
   "capitalLeague": {
     "id": 85000014,
@@ -143,7 +143,7 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/R2zmhyqQ0_lKcDR5EyghXCxgyC9mm_mVMIjAbmGoZtw.png"
         }
       },
-      "trophies": 5010,
+      "trophies": 5028,
       "builderBaseTrophies": 3475,
       "clanRank": 3,
       "previousClanRank": 3,
@@ -267,6 +267,52 @@
       }
     },
     {
+      "tag": "#2RYUC2QP8",
+      "name": "DEATH WORRIOR O",
+      "role": "member",
+      "townHallLevel": 14,
+      "expLevel": 214,
+      "league": {
+        "id": 29000021,
+        "name": "Titan League I",
+        "iconUrls": {
+          "small": "https://api-assets.clashofclans.com/leagues/72/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png",
+          "tiny": "https://api-assets.clashofclans.com/leagues/36/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png",
+          "medium": "https://api-assets.clashofclans.com/leagues/288/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png"
+        }
+      },
+      "trophies": 4863,
+      "builderBaseTrophies": 3046,
+      "clanRank": 6,
+      "previousClanRank": 7,
+      "donations": 676,
+      "donationsReceived": 982,
+      "playerHouse": {
+        "elements": [
+          {
+            "type": "ground",
+            "id": 82000001
+          },
+          {
+            "type": "walls",
+            "id": 82000048
+          },
+          {
+            "type": "roof",
+            "id": 82000033
+          },
+          {
+            "type": "decoration",
+            "id": 82000063
+          }
+        ]
+      },
+      "builderBaseLeague": {
+        "id": 44000025,
+        "name": "Iron League I"
+      }
+    },
+    {
       "tag": "#R98G9C2U",
       "name": "samy",
       "role": "member",
@@ -283,7 +329,7 @@
       },
       "trophies": 4854,
       "builderBaseTrophies": 3809,
-      "clanRank": 6,
+      "clanRank": 7,
       "previousClanRank": 6,
       "donations": 397,
       "donationsReceived": 0,
@@ -327,9 +373,9 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png"
         }
       },
-      "trophies": 4853,
+      "trophies": 4843,
       "builderBaseTrophies": 3885,
-      "clanRank": 7,
+      "clanRank": 8,
       "previousClanRank": 9,
       "donations": 1888,
       "donationsReceived": 1793,
@@ -359,52 +405,6 @@
       }
     },
     {
-      "tag": "#2RYUC2QP8",
-      "name": "DEATH WORRIOR O",
-      "role": "member",
-      "townHallLevel": 14,
-      "expLevel": 214,
-      "league": {
-        "id": 29000021,
-        "name": "Titan League I",
-        "iconUrls": {
-          "small": "https://api-assets.clashofclans.com/leagues/72/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png",
-          "tiny": "https://api-assets.clashofclans.com/leagues/36/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png",
-          "medium": "https://api-assets.clashofclans.com/leagues/288/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png"
-        }
-      },
-      "trophies": 4849,
-      "builderBaseTrophies": 3046,
-      "clanRank": 8,
-      "previousClanRank": 7,
-      "donations": 676,
-      "donationsReceived": 982,
-      "playerHouse": {
-        "elements": [
-          {
-            "type": "ground",
-            "id": 82000001
-          },
-          {
-            "type": "walls",
-            "id": 82000048
-          },
-          {
-            "type": "roof",
-            "id": 82000033
-          },
-          {
-            "type": "decoration",
-            "id": 82000063
-          }
-        ]
-      },
-      "builderBaseLeague": {
-        "id": 44000025,
-        "name": "Iron League I"
-      }
-    },
-    {
       "tag": "#QGVJP9QJQ",
       "name": "choco",
       "role": "member",
@@ -419,12 +419,12 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/qVCZmeYH0lS7Gaa6YoB7LrNly7bfw7fV_d4Vp2CU-gk.png"
         }
       },
-      "trophies": 4825,
+      "trophies": 4826,
       "builderBaseTrophies": 3368,
       "clanRank": 9,
       "previousClanRank": 8,
       "donations": 1,
-      "donationsReceived": 3763,
+      "donationsReceived": 3816,
       "playerHouse": {
         "elements": [
           {
@@ -1017,8 +1017,8 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/kLWSSyq7vJiRiCantiKCoFuSJOxief6R1ky6AyfB8q0.png"
         }
       },
-      "trophies": 3796,
-      "builderBaseTrophies": 4178,
+      "trophies": 3773,
+      "builderBaseTrophies": 4194,
       "clanRank": 22,
       "previousClanRank": 22,
       "donations": 653,
@@ -1483,11 +1483,11 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/JmmTbspV86xBigM7OP5_SjsEDPuE7oXjZC9aOy8xO3s.png"
         }
       },
-      "trophies": 3305,
+      "trophies": 3307,
       "builderBaseTrophies": 1938,
       "clanRank": 33,
       "previousClanRank": 33,
-      "donations": 611,
+      "donations": 664,
       "donationsReceived": 1461,
       "builderBaseLeague": {
         "id": 44000019,
@@ -1647,7 +1647,7 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/JmmTbspV86xBigM7OP5_SjsEDPuE7oXjZC9aOy8xO3s.png"
         }
       },
-      "trophies": 3199,
+      "trophies": 3198,
       "builderBaseTrophies": 2595,
       "clanRank": 37,
       "previousClanRank": 37,
@@ -1969,7 +1969,7 @@
           "medium": "https://api-assets.clashofclans.com/leagues/288/4wtS1stWZQ-1VJ5HaCuDPfdhTWjeZs_jPar_YPzK6Lg.png"
         }
       },
-      "trophies": 2772,
+      "trophies": 2779,
       "builderBaseTrophies": 1711,
       "clanRank": 44,
       "previousClanRank": 46,

@@ -7,8 +7,7 @@ from pathlib import Path
 
 load_dotenv()
 API_TOKEN = os.getenv("API_TOKEN")
-CLAN_TAG = os.getenv("CLAN_TAG")
-ENCODED_CLAN_TAG = urllib.parse.quote(CLAN_TAG)
+
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 HEADERS = {
@@ -32,11 +31,13 @@ def fetch_json(url):
     return None  # return fallback if failed
 
 def get_clan_roster(clan_tag):
-    url = f"https://api.clashofclans.com/v1/clans/{clan_tag}"
+    tag = clean_clan_tag(clan_tag)
+    url = f"https://api.clashofclans.com/v1/clans/{tag}"
     return fetch_json(url)
 
 def get_current_war(clan_tag):
-    url = f"https://api.clashofclans.com/v1/clans/{clan_tag}/currentwar"
+    tag = clean_clan_tag(clan_tag)
+    url = f"https://api.clashofclans.com/v1/clans/{tag}/currentwar"
     return fetch_json(url)
 
 def fetch_all_clan_data(clan_tag):
@@ -55,3 +56,9 @@ def save_json(data, filename):
 def load_json(filename):
     with open(DATA_DIR / filename, "r", encoding="utf-8") as f:
         return json.load(f)
+    
+def clean_clan_tag(tag: str) -> str:
+    """
+    Ensures the clan tag is URL-safe by encoding special characters.
+    """
+    return urllib.parse.quote(tag.strip().upper())
