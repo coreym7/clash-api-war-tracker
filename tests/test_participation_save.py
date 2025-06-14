@@ -23,13 +23,16 @@ parsed_roster, parsed_metadata, parsed_attacks, parsed_participation = parse_all
 # Save required data first
 save_roster(session, parsed_roster)
 war_id = save_war_metadata(session, parsed_metadata)
-player_tag_to_id = {p.tag: p.id for p in session.query(Player).all()}
+player_tag_to_id = {p.tag: p.tag for p in session.query(Player).all()}
+
 
 # Save participation
-participation_map = save_participation(session, parsed_participation, war_id, player_tag_to_id)
+participation_map = save_participation(session, parsed_participation, war_id)
+
 
 # Validate results
 print("\n=== Participation Records ===")
 for tag, part_id in participation_map.items():
-    p = session.query(Participation).get(part_id)
+    player_tag, war_id = tag  # `tag` is the key from the loop
+    p = session.get(Participation, (player_tag, war_id))
     print(f"{tag} | In War: {p.in_war} | Attacks: {p.attacks_used} | Stars: {p.total_stars} | Avg %: {p.average_percent}")

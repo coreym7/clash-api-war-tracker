@@ -82,14 +82,32 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
+    seen_tags = set()
+
     for attack_data in parsed_attacks:
         attacker_tag = attack_data["attacker_tag"]
-        participation_id = participation_lookup.get(attacker_tag)
-        if not participation_id:
-            continue  # skip if no matching participation
+        participation = participation_lookup.get((attacker_tag, war_id))
+
+        if not participation:
+            print(f"[SKIP] No participation found for attacker {attacker_tag}")
+            continue
+
+        if attacker_tag not in seen_tags and len(seen_tags) < limit_debug_players:
+            print(f"\n--- DEBUG ATTACK TRACE FOR PLAYER {attacker_tag} ---")
+            print(f"Participation: {participation}")
+            print(f"Player Tag: {participation.player_id}")
+            print(f"War ID: {participation.war_id}")
+            print(f"Attack Stars: {attack_data['stars']}")
+            print(f"Destruction: {attack_data['destruction_percent']}")
+            print(f"Target Tag: {attack_data['target_tag']}")
+            print(f"Target Pos: {attack_data['target_position']}")
+            print(f"Mirror: {attack_data['mirror_attack']}")
+            print(f"Mirror Delta: {attack_data['mirror_delta']}")
+            print(f"Attack Time: {attack_data['attack_time']}")
+            seen_tags.add(attacker_tag)
 
         attack = Attack(
-            participation_id=participation_id,
+            participation=participation,
             attack_number=attack_data["attack_number"],
             stars=attack_data["stars"],
             destruction_percent=attack_data["destruction_percent"],
@@ -108,32 +126,45 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
 
 
 
-def save_participation(session: Session, parsed_participation: list, war_id: int, player_tag_to_id: dict):
-    tag_to_participation_id = {}
+
+def save_participation(session: Session, parsed_participation: list, war_id: int):
+    """
+    Saves participation records using player_tag as FK (not numeric ID).
+    Returns a map of (player_tag, war_id) -> participation object.
+    """
+    tag_war_to_participation = {}
 
     for entry in parsed_participation:
         player_tag = entry["player_tag"]
-        player_id = player_tag_to_id.get(player_tag)
 
-        
-        if not player_id:
-            continue
-        if not player_id:
-            continue
+        existing = session.query(Participation).filter_by(
+            player_tag=player_tag,
+            war_id=war_id
+        ).first()
 
-        participation = Participation(
-            player_id=player_id,
-            war_id=war_id,
-            in_war=entry["in_war"],
-            attacks_used=entry["attacks_used"],
-            total_stars=entry["total_stars"],
-            new_stars=entry["new_stars"],
-            average_percent=entry["average_percent"]
-        )
-        session.add(participation)
-        session.flush()  # get ID before commit
-        tag_to_participation_id[player_tag] = participation.id
+        if existing:
+            participation = existing
+            participation.in_war = entry["in_war"]
+            participation.attacks_used = entry["attacks_used"]
+            participation.total_stars = entry["total_stars"]
+            participation.new_stars = entry["new_stars"]
+            participation.average_percent = entry["average_percent"]
+        else:
+            participation = Participation(
+                player_tag=player_tag,
+                war_id=war_id,
+                in_war=entry["in_war"],
+                attacks_used=entry["attacks_used"],
+                total_stars=entry["total_stars"],
+                new_stars=entry["new_stars"],
+                average_percent=entry["average_percent"]
+            )
+            session.add(participation)
+
+        session.flush()  # ensure it's in the DB before linking attacks
+        tag_war_to_participation[(player_tag, war_id)] = participation
 
     session.commit()
-    return tag_to_participation_id
+    return tag_war_to_participation
+
 
