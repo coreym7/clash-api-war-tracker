@@ -78,21 +78,34 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
     seen_tags = set()
-    limit_debug_players = 3  # or whatever limit you want
+    limit_debug_players = 3  # optional limit
 
     for attack_data in parsed_attacks:
         attacker_tag = attack_data["attacker_tag"]
+        attack_number = attack_data["attack_number"]  # ← you forgot this line earlier
+
         participation = participation_lookup.get((attacker_tag, war_id))
 
         if not participation:
             print(f"[SKIP] No participation found for attacker {attacker_tag}")
             continue
 
+        # Skip if this attack already exists
+        existing = session.query(Attack).filter_by(
+            player_tag=attacker_tag,
+            war_id=war_id,
+            attack_number=attack_number
+        ).first()
+        if existing:
+            continue  # Skip duplicates
+
+        # Debug logging for first few unique players
         if attacker_tag not in seen_tags and len(seen_tags) < limit_debug_players:
             print(f"\n--- DEBUG ATTACK TRACE FOR PLAYER {attacker_tag} ---")
             print(f"Participation: {participation}")
             print(f"Player Tag: {participation.player.tag}")
             print(f"War ID: {participation.war_id}")
+            print(f"Attack Number: {attack_number}")
             print(f"Attack Stars: {attack_data['stars']}")
             print(f"Destruction: {attack_data['destruction_percent']}")
             print(f"Target Tag: {attack_data['target_tag']}")
@@ -102,9 +115,10 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
             print(f"Attack Time: {attack_data['attack_time']}")
             seen_tags.add(attacker_tag)
 
+        # Insert new attack
         attack = Attack(
             participation=participation,
-            attack_number=attack_data["attack_number"],
+            attack_number=attack_number,
             stars=attack_data["stars"],
             destruction_percent=attack_data["destruction_percent"],
             target_tag=attack_data["target_tag"],
@@ -117,6 +131,7 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
         session.add(attack)
 
     session.commit()
+
 
 
 def save_participation(session: Session, parsed_participation: list, war_id: int):
