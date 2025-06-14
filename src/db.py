@@ -82,8 +82,7 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
 
     for attack_data in parsed_attacks:
         attacker_tag = attack_data["attacker_tag"]
-        attack_number = attack_data["attack_number"]  # ← you forgot this line earlier
-
+        attack_number = attack_data["attack_number"]
         participation = participation_lookup.get((attacker_tag, war_id))
 
         if not participation:
