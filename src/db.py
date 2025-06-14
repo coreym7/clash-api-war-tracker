@@ -83,6 +83,7 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
     seen_tags = set()
+    limit_debug_players = 3  # or whatever limit you want
 
     for attack_data in parsed_attacks:
         attacker_tag = attack_data["attacker_tag"]
@@ -95,7 +96,7 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
         if attacker_tag not in seen_tags and len(seen_tags) < limit_debug_players:
             print(f"\n--- DEBUG ATTACK TRACE FOR PLAYER {attacker_tag} ---")
             print(f"Participation: {participation}")
-            print(f"Player Tag: {participation.player_id}")
+            print(f"Player Tag: {participation.player.tag}")
             print(f"War ID: {participation.war_id}")
             print(f"Attack Stars: {attack_data['stars']}")
             print(f"Destruction: {attack_data['destruction_percent']}")

@@ -31,11 +31,8 @@ parsed_participation = parse_participation(war_data, parsed_roster, parsed_attac
 save_war_metadata(session, parsed_metadata)
 war = session.query(War).filter_by(war_tag=parsed_metadata["war_tag"]).first()
 
-# Map player tags
-player_tag_to_id = {p.tag: p.id for p in session.query(Player).all()}
-
 # Save participation and build tag → participation_id map
-participation_map = save_participation(session, parsed_participation, war.id, player_tag_to_id)
+participation_map = save_participation(session, parsed_participation, war.id)
 
 # Save attacks using attacker_tag → participation_id mapping
 save_attacks(session, parsed_attacks, war.id, participation_map)
@@ -43,8 +40,9 @@ save_attacks(session, parsed_attacks, war.id, participation_map)
 # Validate
 print("\n=== Saved Attacks ===")
 for attack in session.query(Attack).all():
+    p = attack.participation
     print(
-        f"Participation: {attack.participation_id} | "
+        f"Participation: ({p.player_tag}, {p.war_id}) | "
         f"Stars: {attack.stars} | "
         f"%: {attack.destruction_percent} | "
         f"Attack #: {attack.attack_number} | "

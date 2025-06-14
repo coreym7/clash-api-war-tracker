@@ -19,19 +19,17 @@ if not player:
     print(f"No player found with tag {player_tag}")
     exit()
 
-print(f"\nPlayer: {player.name} ({player.tag}) | ID: {player.id}")
+print(f"\nPlayer: {player.name} ({player.tag})")
 
 # Get all participations for this player
-participations = session.query(Participation).filter_by(player_id=player.id).all()
+participations = session.query(Participation).filter_by(player_tag=player.tag).all()
 
 for p in participations:
-    print(f"\nParticipation ID: {p.id} | War ID: {p.war_id} | Attacks Used: {p.attacks_used} | Total Stars: {p.total_stars}")
+    print(f"\nParticipation: ({p.player_tag}, {p.war_id}) | Attacks Used: {p.attacks_used} | Total Stars: {p.total_stars}")
 
-    # Pull attacks linked to this participation
-    attacks = session.query(Attack).filter_by(participation_id=p.id).all()
-
-    if not attacks:
+    # Use relationship to access attacks
+    if not p.attacks:
         print("  No attacks found for this participation.")
     else:
-        for a in attacks:
+        for a in p.attacks:
             print(f"  Attack ID: {a.id} | Stars: {a.stars} | Target: {a.target_tag} | %: {a.destruction_percent} | Time: {a.attack_time}")

@@ -31,7 +31,7 @@ players = session.query(Player).filter(Player.active == True).all()
 for player in players:
     participation = (
         session.query(Participation)
-        .filter(Participation.player_id == player.id, Participation.war_id == latest_war.id)
+        .filter(Participation.player_tag == player.tag, Participation.war_id == latest_war.id)
         .first()
     )
 
