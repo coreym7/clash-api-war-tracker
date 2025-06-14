@@ -16,9 +16,9 @@ Built from scratch with:
 
 ---
 
-## 🔧 Current Development Status
+## 🔧 Current Development Status (as of 6/13/2025)
 
-**Project launched:** June 13, 2025  
+**Project launched:** June 12, 2025  
 The MVP is complete. The system parses API data, stores full relational records, and outputs a summarized Excel file reflecting player participation and attack performance per war.
 
 - ✅ API fetch utilities are functional  
