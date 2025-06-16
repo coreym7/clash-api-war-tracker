@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src'
 
 from utils import fetch_all_clan_data, save_json
 from parser import parse_all
-from db import save_roster, save_war_metadata, save_participation, save_attacks
+from db import save_roster, save_full_war_data
 from models import Player
 from generate_war_report import generate_report  # You'll export this from that script
 from sqlalchemy import create_engine
@@ -31,9 +31,9 @@ parsed_roster, parsed_metadata, parsed_attacks, parsed_participation = parse_all
 
 # === Step 3: Save to Database ===
 save_roster(session, parsed_roster)
-war_id = save_war_metadata(session, parsed_metadata)
-participation_map = save_participation(session, parsed_participation, war_id)
-save_attacks(session, parsed_attacks, war_id, participation_map)
+
+save_full_war_data(session, parsed_metadata, parsed_participation, parsed_attacks)
+
 print("✓ Saved all parsed data to the database.")
 
 # === Step 4: Generate Report ===

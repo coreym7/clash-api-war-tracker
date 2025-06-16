@@ -58,18 +58,26 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
     if war:
         # Update in-place
         war.opponent_name = parsed_metadata["opponent_name"]
+        
+        
+        
         war.result = parsed_metadata["result"]
         war.team_size = parsed_metadata["team_size"]
         war.start_time = parsed_metadata["start_time"]
         war.end_time = parsed_metadata["end_time"]
+        war.state = parsed_metadata["state"]
     else:
         war = War(
             war_tag=war_tag,
             opponent_name=parsed_metadata["opponent_name"],
+            
+            
+            
             result=parsed_metadata["result"],
             team_size=parsed_metadata["team_size"],
             start_time=parsed_metadata["start_time"],
-            end_time=parsed_metadata["end_time"]
+            end_time=parsed_metadata["end_time"],
+            state=parsed_metadata["state"], 
         )
         session.add(war)
 
@@ -78,7 +86,7 @@ def save_war_metadata(session: Session, parsed_metadata: dict):
 
 def save_attacks(session: Session, parsed_attacks: list, war_id: int, participation_lookup: dict):
     seen_tags = set()
-    limit_debug_players = 3  # optional limit
+    limit_debug_players = 0  # optional limit
 
     for attack_data in parsed_attacks:
         attacker_tag = attack_data["attacker_tag"]
@@ -131,8 +139,6 @@ def save_attacks(session: Session, parsed_attacks: list, war_id: int, participat
 
     session.commit()
 
-
-
 def save_participation(session: Session, parsed_participation: list, war_id: int):
     """
     Saves participation records using player_tag as FK (not numeric ID).
@@ -173,4 +179,18 @@ def save_participation(session: Session, parsed_participation: list, war_id: int
     session.commit()
     return tag_war_to_participation
 
+def save_full_war_data(session: Session, parsed_metadata: dict, parsed_participation: list, parsed_attacks: list):
+    """
+    Full save routine for war data, guarded to skip saving if war is in preparation.
+    """
+    war_state = parsed_metadata.get("state")
+    if war_state == "preparation":
+        print(f"⚠ Skipping save for war in 'preparation' state: {parsed_metadata['war_tag']}")
+        return None
+
+    war_id = save_war_metadata(session, parsed_metadata)
+    participation_map = save_participation(session, parsed_participation, war_id)
+    save_attacks(session, parsed_attacks, war_id, participation_map)
+
+    return war_id
 
