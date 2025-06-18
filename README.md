@@ -16,7 +16,7 @@ Built from scratch with:
 
 ---
 
-## 🔧 Current Development Status (as of 6/13/2025)
+## 🔧 Current Development Status (as of 6/17/2025)
 
 **Project launched:** June 12, 2025  
 The MVP is complete. The system parses API data, stores full relational records, and outputs a summarized Excel file reflecting player participation and attack performance per war.
@@ -26,11 +26,16 @@ The MVP is complete. The system parses API data, stores full relational records,
 - ✅ SQLAlchemy-based relational schema is in place  
 - ✅ All database write functions (players, wars, participation, attacks) are implemented  
 - ✅ MVP Excel output is live and includes full summary logic  
+- ✅ System is in use in live environment, successful testing in 3 wars so far. 
 
 ---
 
 ## 🧩 Next Steps
 
+- Order of wars may need re ordered to have most recent next to member names
+- Also consdiering some form of additional legend/icon to quickly indicate performance within the current war column
+  - an alert icon if not active in consecutive wars
+  - another icon to indicate not using attacks in consecutive wars
 - Wrap system in a Flask app:
   - Web-based dashboard with sortable war summaries and roster data
   - Manual or scheduled refresh triggers
