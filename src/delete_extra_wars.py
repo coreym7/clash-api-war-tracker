@@ -16,7 +16,7 @@ for war in wars:
 #This was needed becuase discovered running a iteration while war is in prep phase the start time can vary by a few milliseconds, creating a new unique war tag duplicating the war
 #Will update fetch data to stop if the war state is in preperation.
 # Delete wars by ID
-war_ids_to_delete = [3, 4]
+war_ids_to_delete = [3]
 wars_to_delete = session.query(War).filter(War.id.in_(war_ids_to_delete)).all()
 
 for war in wars_to_delete:
