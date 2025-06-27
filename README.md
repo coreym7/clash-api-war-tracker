@@ -2,17 +2,15 @@
 
 **API-driven analytics and war tracking system built in Python using SQLAlchemy and a fully normalized relational schema.**
 
-This project demonstrates real-world data engineering and systems architecture—integrating a REST API, performing structured ETL parsing, and storing multi-entity data in a relational SQLite backend with test-driven validation. Designed as a portfolio piece to showcase clean architecture, modular data pipelines, and scalable reporting foundations.
+This project demonstrates real-world data engineering and systems architecture—integrating a REST API, performing structured ETL parsing, and storing multi-entity data in a relational SQLite backend. Initially designed as a standalone proof-of-concept, the project is now evolving into a **modular, automated, and scalable analytics pipeline** leveraging modern tooling such as:
 
-Built from scratch with:
+- ✅ **Apache Airflow** for orchestration and scheduled DAG-based execution
+- ✅ **dbt Core** for modular SQL transformations and modeling
+- ✅ **SQLAlchemy** for schema definition and structured inserts into the data warehouse (SQLite)
+- ✅ **Linux server deployment**, scheduled runs, and remote access setup
 
-- ✅ SQLAlchemy-based schema with players, wars, participation, and attack mapping  
-- ✅ Parser modules that extract and transform API JSON into structured metrics  
-- ✅ Isolated save-layer functions with proper foreign key relationships  
-- ✅ Full local test data set and test files validating DB inserts  
-- ✅ MVP output generated to Excel using full war and roster data from live API
+> **Use case:** Built around the Clash of Clans API, but structured like any production-grade data ingestion and analytics system. This project now serves as a hands-on demonstration of real-world ETL architecture, DAG-based orchestration, modular SQL modeling, and automation workflows aligned with modern data engineering best practices.
 
-> **Use case:** Built around the Clash of Clans API, but structured like any production-grade data tracking or analytics ingestion system—a proof-of-concept for ETL and dashboard backend architecture.
 
 ---
 
@@ -26,22 +24,35 @@ The MVP is complete. The system parses API data, stores full relational records,
 - ✅ SQLAlchemy-based relational schema is in place  
 - ✅ All database write functions (players, wars, participation, attacks) are implemented  
 - ✅ MVP Excel output is live and includes full summary logic  
-- ✅ System is in use in live environment, successful testing in 3 wars so far. 
+- ✅ System is in use in live environment, successful testing in 7 wars so far. 
 
 ---
 
 ## 🧩 Next Steps
 
-- Order of wars may need re ordered to have most recent next to member names
-- Also consdiering some form of additional legend/icon to quickly indicate performance within the current war column
-  - an alert icon if not active in consecutive wars
-  - another icon to indicate not using attacks in consecutive wars
-- Wrap system in a Flask app:
-  - Web-based dashboard with sortable war summaries and roster data
-  - Manual or scheduled refresh triggers
-- Deploy on a home server:
-  - Schedule data syncs via cron or background jobs
-  - Enable secure remote access via Tailscale VPN
+The project is currently driven by a manual `main()`-style script and static reporting functions. To improve maintainability, scalability, and align with modern data engineering workflows, the following upgrades are planned:
+
+### 🔄 Orchestration with Apache Airflow
+- Transition from manually running `main.py` to a scheduled Airflow DAG
+- Tasks will include:
+  - Fetching war data via API
+  - Parsing and inserting into the SQLite warehouse via SQLAlchemy
+  - Triggering downstream modeling or reporting steps
+- Hosted on a Linux server with remote access and monitoring via Airflow’s web UI
+
+### 🧱 Modular Data Modeling with dbt
+- Modularize and refactor reporting logic into a dbt Core project, following a layered modeling approach:
+  - `raw_` = direct inserts from API (via SQLAlchemy)
+  - `stg_` = cleaned staging tables
+  - `fct_` and `dim_` = metrics and player snapshots
+- Allows for testable, scalable, and Jinja-templated SQL transformations
+- Intended to scale beyond a single hardcoded clan, with support for multiple tracked clans using dbt’s var() system or macro-based templating.
+
+### ⚙️ Target Architecture
+- Fully modular ETL flow
+- DAG-scheduled API sync and insertions
+- dbt-modeled reporting layer on SQLite (future-ready for Postgres or Snowflake)
+- Reusable reporting logic that can adapt to multiple clans with parameterization
 
 ---
 
