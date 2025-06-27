@@ -1,4 +1,4 @@
-# Clash of Clans War Tracker
+# Clash of Clans War Analytics Platform
 
 **API-driven analytics and war tracking system built in Python using SQLAlchemy and a fully normalized relational schema.**
 
