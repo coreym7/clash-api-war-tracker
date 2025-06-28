@@ -103,19 +103,43 @@ The planned Flask dashboard will preserve this logic and visual structure, with 
 ## 📁 Project Structure
 
 ```
-src/
-├── utils.py              # API fetch and JSON helpers
-├── parser.py             # War, attack, and roster parsing logic
-├── db.py                 # Database write functions
-├── models.py             # SQLAlchemy models
-├── create_db.py          # Schema initialization script
-├── fetch_and_preview.py  # Manual API data pull for previewing
-tests/
-├── test_roster_load.py   # Validates DB writing of clan roster
 data/
-├── clan_roster.json      # Sample JSON for testing
-├── current_war.json      # Sample JSON for testing
+├── clan_roster.json           # Cached API response: clan members
+├── current_war.json           # Cached API response: current war data
+
+reports/
+├── war_report.xlsx            # Generated Excel report of war stats
+
+src/
+├── init.py
+├── create_db.py               # Schema creation
+├── db.py                      # Database save functions
+├── delete_extra_wars.py       # Maintenance script to prune war data
+├── fetch_latest_data.py       # Pulls current data from Clash API
+├── generate_war_report.py     # Builds Excel war report from DB
+├── models.py                  # SQLAlchemy model definitions
+├── parser.py                  # Parses wars, attacks, and roster JSON
+├── save_latest_to_db.py       # Saves latest pulled data into DB
+├── utils.py                   # API calls and JSON helpers
+.gitignore
+LICENSE
+README.md
+requirements.txt
+main.py        # Optional orchestrator entry point
+
+tests/
+├── init.py
+├── debug_participation_attack_link.py   # Debug linkages between participations and attacks
+├── test_attacks_save.py                 # Test saving attacks
+├── test_participation_save.py           # Test saving participation records
+├── test_roster_load.py                  # Test saving roster data
+├── test_war_metadata_save.py            # Test saving war metadata
+├── test_war_report_sample.py            # Sample war report test case
 ```
+---
+## Questions or Feedback?
+
+Have a question or feedback? [Open an issue](https://github.com/coreym7/clash-api-war-tracker/issues) and let me know!
 
 ---
 
