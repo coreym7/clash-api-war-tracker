@@ -13,10 +13,12 @@ from datetime import timedelta
 def generate_report(session):
     # Fetch all wars in chronological order
     wars = session.query(War).order_by(War.start_time.asc()).all()
+    wars.reverse() #newest first
     players = session.query(Player).filter_by(active=True).all()
 
     # Build column headers
-    columns = ["Player Tag", "Player Name"] + [f"War {i+1}" for i in range(len(wars))]
+    columns = ["Player Tag", "Player Name"] + [f"War {len(wars)-i}" for i in range(len(wars))]
+
     rows = []
 
     for player in players:
