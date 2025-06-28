@@ -105,6 +105,6 @@ This will:
 
 Check the `data/` folder for downloaded API data and `reports/` for output files.
 
-If you have questions, [open an issue](https://github.com/your-username/your-repo/issues).
+If you have questions, [open an issue](https://github.com/coreym7/clash-api-war-tracker/issues).
 
 ---
