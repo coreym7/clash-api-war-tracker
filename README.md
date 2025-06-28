@@ -14,7 +14,7 @@ This project demonstrates real-world data engineering and systems architecture�
 
 ---
 
-## 🔧 Current Development Status (as of 6/17/2025)
+## 🔧 Current Development Status (as of 6/28/2025)
 
 **Project launched:** June 12, 2025  
 The MVP is complete. The system parses API data, stores full relational records, and outputs a summarized Excel file reflecting player participation and attack performance per war.
@@ -24,7 +24,7 @@ The MVP is complete. The system parses API data, stores full relational records,
 - ✅ SQLAlchemy-based relational schema is in place  
 - ✅ All database write functions (players, wars, participation, attacks) are implemented  
 - ✅ MVP Excel output is live and includes full summary logic  
-- ✅ System is in use in live environment, successful testing in 7 wars so far. 
+- ✅ System is in use in live environment, successful testing in 8 wars so far. 
 
 ---
 
