@@ -1,0 +1,5 @@
+name: war_tracker_dbt
+version: 1.0
+profile: war_tracker_dbt
+
+model-paths: ["models"]
