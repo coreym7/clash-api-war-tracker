@@ -6,19 +6,67 @@ models:
     columns:
       - name: player_tag
         description: Unique identifier
+      - name: name
+        description: Player's display name
+      - name: active
+        description: Whether player is active in clan
+      - name: first_seen
+        description: Timestamp when player first appeared
+      - name: last_seen
+        description: Timestamp when player was last seen
 
   - name: stg_attacks
     description: Raw attacks cleaned and normalized
     columns:
       - name: attacker_tag
-        description: Who attacked
+        description: Tag of player who attacked
+      - name: defender_tag
+        description: Tag of player who defended
+      - name: war_id
+        description: War identifier
       - name: stars
-        description: Stars earned
+        description: Stars earned in attack
+      - name: destruction_percent
+        description: Percent destruction achieved
+      - name: mirror_delta
+        description: Mirror delta metric for attack performance
 
   - name: stg_participation
     description: War participation details
     columns:
       - name: player_tag
-        description: The player
+        description: Player tag for participation record
+      - name: war_id
+        description: War identifier
       - name: in_war
-        description: Whether they were marked for war
+        description: Whether player participated in the war
+      - name: new_stars
+        description: New stars earned in this war
+      - name: attacks_launched
+        description: Number of attacks launched by player
+  
+  - name: stg_wars
+    description: War metadata and summary information
+    columns:
+      - name: id
+        description: Unique war identifier
+      - name: start_time
+        description: Timestamp when the war started
+      - name: end_time
+        description: Timestamp when the war ended
+      - name: clan_name
+        description: Name of our clan in this war
+      - name: clan_tag
+        description: Tag of our clan
+      - name: result
+        description: Outcome of the war (win, lose, draw)
+      - name: team_size
+        description: Number of players on each team
+      - name: clan_stars
+        description: Total stars earned by our clan
+      - name: clan_destruction_percentage
+        description: Total destruction percentage by our clan
+      - name: opponent_stars
+        description: Total stars earned by opponent clan
+      - name: opponent_destruction_percentage
+        description: Total destruction percentage by opponent clan
