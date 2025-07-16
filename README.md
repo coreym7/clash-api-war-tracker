@@ -51,7 +51,7 @@ The project is currently driven by a manual `main()`-style script and static rep
 ### ⚙️ Target Architecture
 - Fully modular ETL flow
 - DAG-scheduled API sync and insertions
-- dbt-modeled reporting layer on SQLite (future-ready for Postgres or Snowflake)
+- dbt-modeled reporting layer on SQLite - Needs transitioned to Postgresql to support dbt/airflow use
 - Reusable reporting logic that can adapt to multiple clans with parameterization
 
 ---
